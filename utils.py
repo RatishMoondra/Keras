@@ -1,6 +1,33 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+#Code to Compute Sensitivity, Specificty, Precision, Recall
+def compute_metrics(cm):
+    # TP = np.sum((y_true == 1) & (y_pred == 1))
+    # TN = np.sum((y_true == 0) & (y_pred == 0))
+    # FP = np.sum((y_true == 0) & (y_pred == 1))
+    # FN = np.sum((y_true == 1) & (y_pred == 0))
+
+    TP = cm[0,0]
+    TN = cm[1,1]
+    FP = cm[0,1]
+    FN = cm[1,0]
+
+    accuracy = (TP + TN) / (TP + TN + FP + FN)
+    sensitivity = TP / (TP + FN)
+    specificity = TN / (TN + FP)
+    precision = TP / (TP + FP)
+    recall = TP / (TP + FN)
+    f1_score = 2 * (precision * recall) / (precision + recall)
+    print('Accuracy:', accuracy)
+    print('Sensitivity:', sensitivity)
+    print('Specificity:', specificity)
+    print('Precision:', precision)
+    print('Recall:', recall)
+    print('F1 Score:', f1_score)
+
+    
+    return accuracy,sensitivity, specificity, precision, recall,f1_score
 
 def plot_learning_curve(history, title='Learning Curve', xlabel='Epochs', ylabel='Loss'):
     """
